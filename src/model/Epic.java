@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Epic extends Task {
-
     private final List<Integer> subTasksIds = new ArrayList<>();
 
-    public Epic(String name, Status status, String description) {
-        super(name, Status.NEW, description);
+    public Epic(String name, String description) {
+        super(name, Status.NEW, description); // Статус NEW всегда по умолчанию
     }
 
     public List<Integer> getSubTasks() {
@@ -19,11 +18,11 @@ public class Epic extends Task {
         subTasksIds.add(id);
     }
 
-    public void removeTask(int id) {
+    public void removeSubTask(int id) {
         subTasksIds.remove(Integer.valueOf(id));
     }
 
-    public void removeAllTasks() {
+    public void clearSubTasks() {
         subTasksIds.clear();
     }
 
@@ -38,4 +37,5 @@ public class Epic extends Task {
                 '}';
     }
 }
+
 
