@@ -4,12 +4,12 @@ public class SubTask extends Task {
     private final int epicId;
 
     public SubTask(int epicId, String name, String description) {
-        super(name, Status.NEW, description); // Статус NEW по умолчанию
+        super(name, Status.NEW, description);
         this.epicId = epicId;
     }
 
     public SubTask(int epicId, String name, String description, Status status) {
-        super(name, status, description); // Передаем статус через параметр
+        super(name, status, description);
         this.epicId = epicId;
     }
 

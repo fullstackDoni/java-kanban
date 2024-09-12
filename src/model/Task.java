@@ -19,6 +19,12 @@ public class Task {
         this.status = status;
     }
 
+    public Task(String name, String s, Status status) {
+        this.name = name;
+        this.description = s;
+        this.status = status;
+    }
+
     public int getId() {
         return id;
     }
