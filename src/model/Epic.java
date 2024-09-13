@@ -7,7 +7,11 @@ public class Epic extends Task {
     private final List<Integer> subTasksIds = new ArrayList<>();
 
     public Epic(String name, String description) {
-        super(name, Status.NEW, description);
+        super(name, description, Status.NEW); // Используйте конструктор с тремя параметрами
+    }
+
+    public Epic(int id, String name, String description) {
+        super(id, name, description, Status.NEW); // Используйте конструктор с четырьмя параметрами
     }
 
     public List<Integer> getSubTasks() {

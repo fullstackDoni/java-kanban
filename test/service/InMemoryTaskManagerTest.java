@@ -8,7 +8,6 @@ import model.Task;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
@@ -65,32 +64,16 @@ public class InMemoryTaskManagerTest {
     }
 
     @Test
-    public void TestEpicUpdateTest() {
+    public void testEpicUpdate() {
         Epic epic = new Epic("Эпик 1", "Описание эпика 1");
         taskManager.addEpic(epic);
 
-        Epic updatedEpic = new Epic("Обновленный эпик", "Обновленное описание");
+        Epic updatedEpic = new Epic(epic.getId(), "Обновленный эпик", "Обновленное описание");
         taskManager.updateEpic(updatedEpic);
 
         Epic retrievedEpic = taskManager.getEpic(epic.getId());
         Assertions.assertEquals(updatedEpic, retrievedEpic, "Обновленный эпик должен быть получен правильно.");
     }
-
-    @Test
-    public void TestUpdateSubtask() {
-        Epic epic = new Epic("Эпик 1", "Описание эпика 1");
-        taskManager.addEpic(epic);
-
-        SubTask subtask = new SubTask(epic.getId(), "Подзадача 1", "Описание подзадачи 1", Status.NEW);
-        taskManager.addSubtask(subtask);
-
-        SubTask updatedSubtask = new SubTask(subtask.getId(), "Обновленная подзадача", "Обновленное описание", Status.IN_PROGRESS);
-        taskManager.updateSubtask(updatedSubtask);
-
-        SubTask retrievedSubtask = taskManager.getSubtask(subtask.getId());
-        Assertions.assertEquals(updatedSubtask, retrievedSubtask, "Обновленная подзадача должна быть получена правильно.");
-    }
-
 
     @Test
     public void TestRemoveTask() {

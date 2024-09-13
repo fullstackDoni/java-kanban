@@ -34,17 +34,17 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public List<Task> getTasks() {
-        return new ArrayList<>(tasks.values());
+        return getAllTasks();
     }
 
     @Override
     public List<Epic> getEpics() {
-        return new ArrayList<>(epics.values());
+        return getAllEpics();
     }
 
     @Override
     public List<SubTask> getSubtasks() {
-        return new ArrayList<>(subtasks.values());
+        return getAllSubtasks();
     }
 
     @Override
@@ -93,6 +93,7 @@ public class InMemoryTaskManager implements TaskManager {
             subtask.setId(++id);
             subtasks.put(subtask.getId(), subtask);
             epic.addSubTask(subtask.getId());
+            updateStatus(epic);
         } else {
             System.out.println("Эпик с ID " + subtask.getEpicId() + " не найден.");
         }
@@ -110,8 +111,9 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void updateEpic(Epic epic) {
         if (epics.containsKey(epic.getId())) {
-            epics.put(epic.getId(), epic);
-            updateStatus(epic);
+            Epic savedEpic = epics.get(epic.getId());
+            savedEpic.setName(epic.getName());
+            savedEpic.setDescription(epic.getDescription());
         } else {
             System.out.println("Эпик с ID " + epic.getId() + " не найден.");
         }
@@ -195,6 +197,22 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public List<Task> getHistory() {
         return historyManager.getHistory();
+    }
+
+    @Override
+    public List<SubTask> getSubtasksOfEpic(int epicId) {
+        Epic epic = epics.get(epicId);
+        if (epic != null) {
+            List<SubTask> result = new ArrayList<>();
+            for (Integer subTaskId : epic.getSubTasks()) {
+                SubTask subTask = subtasks.get(subTaskId);
+                if (subTask != null) {
+                    result.add(subTask);
+                }
+            }
+            return result;
+        }
+        return new ArrayList<>();
     }
 }
 
