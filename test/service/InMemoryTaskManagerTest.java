@@ -52,7 +52,7 @@ public class InMemoryTaskManagerTest {
     }
 
     @Test
-    public void TestTaskUpdateTest() {
+    public void testTaskUpdateTest() {
         Task task = new Task("Задача 1", "Описание задачи 1", Status.NEW);
         taskManager.addTask(task);
 
@@ -76,7 +76,7 @@ public class InMemoryTaskManagerTest {
     }
 
     @Test
-    public void TestRemoveTask() {
+    public void testRemoveTask() {
         Task task = new Task("Задача 1", "Описание задачи 1", Status.NEW);
         taskManager.addTask(task);
 
@@ -86,7 +86,7 @@ public class InMemoryTaskManagerTest {
     }
 
     @Test
-    public void TestRemoveEpic() {
+    public void testRemoveEpic() {
         Epic epic = new Epic("Эпик 1", "Описание эпика 1");
         taskManager.addEpic(epic);
 
@@ -100,7 +100,7 @@ public class InMemoryTaskManagerTest {
     }
 
     @Test
-    public void TestRemoveSubtask() {
+    public void testRemoveSubtask() {
         Epic epic = new Epic("Эпик 1", "Описание эпика 1");
         taskManager.addEpic(epic);
 
@@ -113,7 +113,7 @@ public class InMemoryTaskManagerTest {
     }
 
     @Test
-    public void TestGetHistory() {
+    public void testGetHistory() {
         Task task1 = new Task("Задача 1", "Описание задачи 1", Status.NEW);
         Task task2 = new Task("Задача 2", "Описание задачи 2", Status.IN_PROGRESS);
         taskManager.addTask(task1);

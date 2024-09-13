@@ -33,21 +33,6 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public List<Task> getTasks() {
-        return getAllTasks();
-    }
-
-    @Override
-    public List<Epic> getEpics() {
-        return getAllEpics();
-    }
-
-    @Override
-    public List<SubTask> getSubtasks() {
-        return getAllSubtasks();
-    }
-
-    @Override
     public Task getTask(int id) {
         Task task = tasks.get(id);
         if (task != null) {
@@ -195,6 +180,26 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
+    public void deleteAllTasks() {
+        tasks.clear();
+    }
+
+    @Override
+    public void deleteAllEpics() {
+        epics.clear();
+        subtasks.clear();
+    }
+
+    @Override
+    public void deleteAllSubtasks() {
+        subtasks.clear();
+        for (Epic epic : epics.values()) {
+            epic.clearSubTasks();
+            updateStatus(epic);
+        }
+    }
+
+    @Override
     public List<Task> getHistory() {
         return historyManager.getHistory();
     }
@@ -215,5 +220,6 @@ public class InMemoryTaskManager implements TaskManager {
         return new ArrayList<>();
     }
 }
+
 
 
