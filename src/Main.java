@@ -20,11 +20,17 @@ public class Main {
         taskManager.addSubtask(subtask1);
 
         System.out.println("Получение задач:");
-        taskManager.getTask(task1.getId());
-        taskManager.getEpic(epic1.getId());
-        taskManager.getSubtask(subtask1.getId());
+        Task retrievedTask1 = taskManager.getTask(task1.getId());
+        Task retrievedTask2 = taskManager.getTask(task2.getId());
+        Epic retrievedEpic1 = taskManager.getEpic(epic1.getId());
+        SubTask retrievedSubtask1 = taskManager.getSubtask(subtask1.getId());
 
-        System.out.println("История просмотров:");
+        System.out.println("Задача 1: " + retrievedTask1);
+        System.out.println("Задача 2: " + retrievedTask2);
+        System.out.println("Эпик 1: " + retrievedEpic1);
+        System.out.println("Подзадача 1: " + retrievedSubtask1);
+
+        System.out.println("\nИстория просмотров:");
         for (Task task : taskManager.getHistory()) {
             System.out.println(task);
         }
@@ -34,22 +40,22 @@ public class Main {
 
     private static void printAllTasks(TaskManager manager) {
         System.out.println("Задачи:");
-        for (Task task : manager.getTasks()) {
+        for (Task task : manager.getAllTasks()) {
             System.out.println(task);
         }
 
-        System.out.println("Эпики:");
-        for (Epic epic : manager.getEpics()) {
+        System.out.println("\nЭпики:");
+        for (Epic epic : manager.getAllEpics()) {
             System.out.println(epic);
-            for (SubTask subtask : manager.getSubtasks()) {
+            for (SubTask subtask : manager.getAllSubtasks()) {
                 if (subtask.getEpicId() == epic.getId()) {
                     System.out.println("--> " + subtask);
                 }
             }
         }
 
-        System.out.println("Подзадачи:");
-        for (SubTask subtask : manager.getSubtasks()) {
+        System.out.println("\nПодзадачи:");
+        for (SubTask subtask : manager.getAllSubtasks()) {
             System.out.println(subtask);
         }
 
