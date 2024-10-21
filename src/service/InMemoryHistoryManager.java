@@ -1,28 +1,74 @@
 package service;
 
+import model.Node;
 import model.Task;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class InMemoryHistoryManager implements HistoryManager {
-    private final List<Task> history = new ArrayList<>();
-    private static final int HISTORY_LIMIT = 10;
+    private final Map<Integer, Node> taskMap = new HashMap<>();
+    private Node head;
+    private Node tail;
 
     @Override
     public void add(Task task) {
         if (task != null) {
-            history.add(task);
-            if (history.size() > HISTORY_LIMIT) {
-                history.remove(0);
-            }
+            remove(task.getId());
+            linkLast(task);
+        }
+    }
+
+    @Override
+    public void remove(int id) {
+        Node node = taskMap.remove(id);
+        if (node != null) {
+            removeNode(node);
         }
     }
 
     @Override
     public List<Task> getHistory() {
-        return new ArrayList<>(history);
+        List<Task> history = new LinkedList<>();
+        Node current = head;
+        while (current != null) {
+            history.add(current.getTask());
+            current = current.getNext();
+        }
+        return history;
+    }
+
+    private void linkLast(Task task) {
+        Node newNode = new Node(task, tail, null);
+        if (tail != null) {
+            tail.setNext(newNode);
+        }
+        tail = newNode;
+        if (head == null) {
+            head = newNode;
+        }
+        taskMap.put(task.getId(), newNode);
+    }
+
+    private void removeNode(Node node) {
+        Node prev = node.getPrev();
+        Node next = node.getNext();
+
+        if (prev != null) {
+            prev.setNext(next);
+        } else {
+            head = next;
+        }
+
+        if (next != null) {
+            next.setPrev(prev);
+        } else {
+            tail = prev;
+        }
     }
 }
+
 
 

@@ -5,20 +5,20 @@ import model.Status;
 import model.SubTask;
 import model.Task;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class InMemoryTaskManagerTest {
 
     private TaskManager taskManager;
 
-    @Before
+    @BeforeEach
     public void setUp() {
-        taskManager = new InMemoryTaskManager();;
+        taskManager = new InMemoryTaskManager();
     }
 
     @Test
@@ -27,7 +27,8 @@ public class InMemoryTaskManagerTest {
         taskManager.addTask(task);
 
         Task retrievedTask = taskManager.getTask(task.getId());
-        Assertions.assertEquals(task, retrievedTask, "Задача должна быть получена правильно.");
+        assertNotNull(retrievedTask, "Задача должна быть получена.");
+        assertEquals(task, retrievedTask, "Задача должна быть получена правильно.");
     }
 
     @Test
@@ -36,7 +37,8 @@ public class InMemoryTaskManagerTest {
         taskManager.addEpic(epic);
 
         Epic retrievedEpic = taskManager.getEpic(epic.getId());
-        Assertions.assertEquals(epic, retrievedEpic, "Эпик должен быть получен правильно.");
+        assertNotNull(retrievedEpic, "Эпик должен быть получен.");
+        assertEquals(epic, retrievedEpic, "Эпик должен быть получен правильно.");
     }
 
     @Test
@@ -48,11 +50,15 @@ public class InMemoryTaskManagerTest {
         taskManager.addSubtask(subtask);
 
         SubTask retrievedSubtask = taskManager.getSubtask(subtask.getId());
-        Assertions.assertEquals(subtask, retrievedSubtask, "Подзадача должна быть получена правильно.");
+        assertNotNull(retrievedSubtask, "Подзадача должна быть получена.");
+        assertEquals(subtask, retrievedSubtask, "Подзадача должна быть получена правильно.");
+
+        // Check if subtask is linked to the epic
+        assertTrue(epic.getSubTasks().contains(subtask.getId()), "Подзадача должна быть связана с эпиком.");
     }
 
     @Test
-    public void testTaskUpdateTest() {
+    public void testTaskUpdate() {
         Task task = new Task("Задача 1", "Описание задачи 1", Status.NEW);
         taskManager.addTask(task);
 
@@ -60,7 +66,8 @@ public class InMemoryTaskManagerTest {
         taskManager.updateTask(updatedTask);
 
         Task retrievedTask = taskManager.getTask(task.getId());
-        Assertions.assertEquals(updatedTask, retrievedTask, "Обновленная задача должна быть получена правильно.");
+        assertNotNull(retrievedTask, "Обновленная задача должна быть получена.");
+        assertEquals(updatedTask, retrievedTask, "Обновленная задача должна быть получена правильно.");
     }
 
     @Test
@@ -72,7 +79,8 @@ public class InMemoryTaskManagerTest {
         taskManager.updateEpic(updatedEpic);
 
         Epic retrievedEpic = taskManager.getEpic(epic.getId());
-        Assertions.assertEquals(updatedEpic, retrievedEpic, "Обновленный эпик должен быть получен правильно.");
+        assertNotNull(retrievedEpic, "Обновленный эпик должен быть получен.");
+        assertEquals(updatedEpic, retrievedEpic, "Обновленный эпик должен быть получен правильно.");
     }
 
     @Test
@@ -127,4 +135,3 @@ public class InMemoryTaskManagerTest {
         assertTrue(history.contains(task2), "История должна содержать Задачу 2.");
     }
 }
-
