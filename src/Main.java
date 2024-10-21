@@ -1,3 +1,5 @@
+
+
 import model.Epic;
 import model.Status;
 import model.SubTask;
@@ -20,31 +22,57 @@ public class Main {
         taskManager.addSubtask(subtask1);
 
         System.out.println("Получение задач:");
-        Task retrievedTask1 = taskManager.getTask(task1.getId());
-        Task retrievedTask2 = taskManager.getTask(task2.getId());
-        Epic retrievedEpic1 = taskManager.getEpic(epic1.getId());
-        SubTask retrievedSubtask1 = taskManager.getSubtask(subtask1.getId());
-
-        System.out.println("Задача 1: " + retrievedTask1);
-        System.out.println("Задача 2: " + retrievedTask2);
-        System.out.println("Эпик 1: " + retrievedEpic1);
-        System.out.println("Подзадача 1: " + retrievedSubtask1);
+        printTask(taskManager, task1.getId());
+        printTask(taskManager, task2.getId());
+        printEpic(taskManager, epic1.getId());
+        printSubtask(taskManager, subtask1.getId());
 
         System.out.println("\nИстория просмотров:");
-        for (Task task : taskManager.getHistory()) {
-            System.out.println(task);
-        }
+        printHistory(taskManager);
 
         printAllTasks(taskManager);
     }
 
+    private static void printTask(TaskManager manager, int id) {
+        Task task = manager.getTask(id);
+        if (task != null) {
+            System.out.println("Задача " + id + ": " + task);
+        } else {
+            System.out.println("Задача " + id + " не найдена.");
+        }
+    }
+
+    private static void printEpic(TaskManager manager, int id) {
+        Epic epic = manager.getEpic(id);
+        if (epic != null) {
+            System.out.println("Эпик " + id + ": " + epic);
+        } else {
+            System.out.println("Эпик " + id + " не найден.");
+        }
+    }
+
+    private static void printSubtask(TaskManager manager, int id) {
+        SubTask subtask = manager.getSubtask(id);
+        if (subtask != null) {
+            System.out.println("Подзадача " + id + ": " + subtask);
+        } else {
+            System.out.println("Подзадача " + id + " не найдена.");
+        }
+    }
+
+    private static void printHistory(TaskManager manager) {
+        for (Task task : manager.getHistory()) {
+            System.out.println(task);
+        }
+    }
+
     private static void printAllTasks(TaskManager manager) {
-        System.out.println("Задачи:");
+        System.out.println("\nВсе задачи:");
         for (Task task : manager.getAllTasks()) {
             System.out.println(task);
         }
 
-        System.out.println("\nЭпики:");
+        System.out.println("\nВсе эпики:");
         for (Epic epic : manager.getAllEpics()) {
             System.out.println(epic);
             for (SubTask subtask : manager.getAllSubtasks()) {
@@ -54,15 +82,13 @@ public class Main {
             }
         }
 
-        System.out.println("\nПодзадачи:");
+        System.out.println("\nВсе подзадачи:");
         for (SubTask subtask : manager.getAllSubtasks()) {
             System.out.println(subtask);
         }
 
         System.out.println("\nИстория просмотров:");
-        for (Task task : manager.getHistory()) {
-            System.out.println(task);
-        }
+        printHistory(manager);
     }
 }
 
