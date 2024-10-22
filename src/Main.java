@@ -27,7 +27,7 @@ public class Main {
         printEpic(taskManager, epic1.getId());
         printSubtask(taskManager, subtask1.getId());
 
-        System.out.println("\nИстория просмотров:");
+        System.out.println("История просмотров:");
         printHistory(taskManager);
 
         printAllTasks(taskManager);
@@ -67,12 +67,12 @@ public class Main {
     }
 
     private static void printAllTasks(TaskManager manager) {
-        System.out.println("\nВсе задачи:");
+        System.out.println("Все задачи:");
         for (Task task : manager.getAllTasks()) {
             System.out.println(task);
         }
 
-        System.out.println("\nВсе эпики:");
+        System.out.println("Все эпики:");
         for (Epic epic : manager.getAllEpics()) {
             System.out.println(epic);
             for (SubTask subtask : manager.getAllSubtasks()) {
@@ -82,12 +82,12 @@ public class Main {
             }
         }
 
-        System.out.println("\nВсе подзадачи:");
+        System.out.println("Все подзадачи:");
         for (SubTask subtask : manager.getAllSubtasks()) {
             System.out.println(subtask);
         }
 
-        System.out.println("\nИстория просмотров:");
+        System.out.println("История просмотров:");
         printHistory(manager);
     }
 }
