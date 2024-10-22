@@ -13,6 +13,7 @@ public class Main {
         Task task2 = new Task("Задача 2", "Описание задачи 2", Status.IN_PROGRESS);
         Task task3 = new Task("Задача 3", "Описание задачи 3", Status.DONE);
         Epic epic1 = new Epic("Эпик 1", "Описание эпика 1");
+        Epic epic2 = new Epic("Эпик 2", "Описание эпика 2");
         SubTask subtask1 = new SubTask(epic1.getId(), "Подзадача 1", "Описание подзадачи 1", Status.NEW);
         SubTask subTask2 = new SubTask(epic1.getId(), "Подзадача 1", "Описание подзадачи 1", Status.NEW);
 
