@@ -15,11 +15,13 @@ public class Main {
         Task task2 = new Task("Задача 2", "Описание задачи 2", Status.IN_PROGRESS);
         Epic epic1 = new Epic("Эпик 1", "Описание эпика 1");
         SubTask subtask1 = new SubTask(epic1.getId(), "Подзадача 1", "Описание подзадачи 1", Status.NEW);
+        SubTask subTask2 = new SubTask(epic1.getId(), "Подзадача 1", "Описание подзадачи 1", Status.NEW);
 
         taskManager.addTask(task1);
         taskManager.addTask(task2);
         taskManager.addEpic(epic1);
         taskManager.addSubtask(subtask1);
+        taskManager.addSubtask(subTask2);
 
         System.out.println("Получение задач:");
         printTask(taskManager, task1.getId());
