@@ -13,17 +13,20 @@ public class Main {
         Task task2 = new Task("Задача 2", "Описание задачи 2", Status.IN_PROGRESS);
         Epic epic1 = new Epic("Эпик 1", "Описание эпика 1");
         SubTask subtask1 = new SubTask(epic1.getId(), "Подзадача 1", "Описание подзадачи 1", Status.NEW);
+        Epic epic2 = new Epic("Эпик 2","Описание эпика 2");
 
         taskManager.addTask(task1);
         taskManager.addTask(task2);
         taskManager.addEpic(epic1);
         taskManager.addSubtask(subtask1);
+        taskManager.addEpic(epic2);
 
         System.out.println("Получение задач:");
         printTask(taskManager, task1.getId());
         printTask(taskManager, task2.getId());
         printEpic(taskManager, epic1.getId());
         printSubtask(taskManager, subtask1.getId());
+        printEpic(taskManager, epic2.getId());
 
         System.out.println("История просмотров:");
         printHistory(taskManager);
