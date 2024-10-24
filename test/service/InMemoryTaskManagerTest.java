@@ -4,12 +4,8 @@ import model.Epic;
 import model.Status;
 import model.SubTask;
 import model.Task;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class InMemoryTaskManagerTest {
@@ -121,21 +117,28 @@ public class InMemoryTaskManagerTest {
     }
 
     @Test
-    public void testGetHistory() {
-        Task task1 = new Task("Задача 1", "Описание задачи 1", Status.NEW);
-        Task task2 = new Task("Задача 2", "Описание задачи 2", Status.IN_PROGRESS);
-        taskManager.addTask(task1);
-        taskManager.addTask(task2);
+    public void testSubtaskIntegrityAfterRemoval() {
+        Epic epic = new Epic("Эпик 1", "Описание эпика 1");
+        taskManager.addEpic(epic);
 
-        taskManager.getTask(task1.getId());
-        taskManager.getTask(task2.getId());
+        SubTask subtask = new SubTask(epic.getId(), "Подзадача 1", "Описание подзадачи 1", Status.NEW);
+        taskManager.addSubtask(subtask);
 
-        List<Task> history = taskManager.getHistory();
-        System.out.println(history);
+        taskManager.removeSubtask(subtask.getId());
 
-        assertTrue(history.contains(task1), "История должна содержать Задачу 1.");
-        assertTrue(history.contains(task2), "История должна содержать Задачу 2.");
+        assertFalse(epic.getSubTasks().contains(subtask.getId()), "Эпик не должен содержать удаленную подзадачу.");
     }
 
+    @Test
+    public void testUpdateTaskUpdatesManagerData() {
+        Task task = new Task("Задача 1", "Описание задачи 1", Status.NEW);
+        taskManager.addTask(task);
+
+        task.setName("Измененная задача");
+        taskManager.updateTask(task);
+
+        Task updatedTask = taskManager.getTask(task.getId());
+        assertEquals("Измененная задача", updatedTask.getName(), "Имя задачи должно быть обновлено.");
+    }
 
 }
