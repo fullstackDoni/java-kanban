@@ -1,7 +1,7 @@
 package model;
 
 public class Node {
-    private Task Task;
+    private Task task;
     private Node prev;
     private Node next;
 
@@ -10,17 +10,17 @@ public class Node {
     }
 
     public Node(Task Task, Node prev, Node next) {
-        this.Task = Task;
+        this.task = Task;
         this.prev = prev;
         this.next = next;
     }
 
     public Task getTask() {
-        return Task;
+        return task;
     }
 
     public void setTask(Task task) {
-        this.Task = task;
+        this.task = task;
     }
 
     public Node getPrev() {
