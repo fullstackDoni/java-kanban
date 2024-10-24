@@ -35,7 +35,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public Task getTask(int id) {
         Task task = tasks.get(id);
-        if (task != null) {
+        if(task == null) {
             historyManager.add(task);
         }
         return task;
@@ -200,8 +200,13 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public List<Task> getHistory() {
-        return historyManager.getHistory();
+        return new ArrayList<>(historyManager.getHistory()); // Assuming historyManager maintains the list of tasks
     }
+
+//    @Override
+//    public List<Task> getHistory() {
+//        return historyManager.getHistory();
+//    }
 
     @Override
     public List<SubTask> getSubtasksOfEpic(int epicId) {
