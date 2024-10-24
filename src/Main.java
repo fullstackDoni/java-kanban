@@ -9,41 +9,37 @@ public class Main {
     public static void main(String[] args) {
         TaskManager taskManager = Managers.getDefault();
 
-        Task task1 = new Task("Задача 1", "Описание задачи 1", Status.NEW);
-        Task task2 = new Task("Задача 2", "Описание задачи 2", Status.IN_PROGRESS);
-        Task task3 = new Task("Задача 3", "Описание задачи 3", Status.DONE);
-        Task task4 = new Task("Задача 4", "Описание задачи 4", Status.DONE);
-        Epic epic1 = new Epic("Эпик 1", "Описание эпика 1");
-        SubTask subtask1 = new SubTask(epic1.getId(), "Подзадача 1", "Описание подзадачи 1", Status.NEW);
-        Epic epic2 = new Epic("Эпик 2", "Описание эпика 2");
-        SubTask subTask2 = new SubTask(epic1.getId(), "Подзадача 1", "Описание подзадачи 2", Status.NEW);
-        Epic epic3 = new Epic("epic 3","Description epic");
+        Task task1 = new Task("Задача по Java","Нужно создать новый Bean",Status.NEW);
+        Task task2 = new Task("Задача по Spring Boot","Нужно создать новый Сервис",Status.NEW);
+        Epic epic1 = new Epic("Задача по Эпик","Эпики задачи");
+        Epic epic2 = new Epic("Задача по Эпик два","Эпики по задачи два");
+        SubTask subTask = new SubTask(epic1.getId(),"Подзадача по Эпик","Нужно ещё добавить эпики",Status.NEW);
 
         taskManager.addTask(task1);
         taskManager.addTask(task2);
-        taskManager.addTask(task3);
-        taskManager.addTask(task4);
         taskManager.addEpic(epic1);
-        taskManager.addSubtask(subtask1);
         taskManager.addEpic(epic2);
-        taskManager.addSubtask(subTask2);
-        taskManager.addEpic(epic3);
+        taskManager.addSubtask(subTask);
 
-        System.out.println("Получение задач:");
-        printTask(taskManager, task1.getId());
-        printTask(taskManager, task2.getId());
-        printTask(taskManager, task3.getId());
-        printTask(taskManager,task4.getId());
-        printEpic(taskManager, epic1.getId());
-        printSubtask(taskManager, subtask1.getId());
-        printEpic(taskManager, epic2.getId());
-        printSubtask(taskManager,subTask2.getId());
-        printEpic(taskManager, epic3.getId());
+        System.out.println("Получение Задач:");
+        printTask(taskManager,task1.getId());
+        printTask(taskManager,task2.getId());
+        printEpic(taskManager,epic1.getId());
+        printEpic(taskManager,epic2.getId());
+        printSubtask(taskManager,subTask.getId());
 
         System.out.println("История просмотров:");
         printHistory(taskManager);
 
+        System.out.println("Удаление задачи 1 и эпика 1:");
+        taskManager.removeTask(task1.getId());
+        taskManager.removeEpic(epic1.getId());
+
+        System.out.println("История просмотров после удаления:");
+        printHistory(taskManager);
         printAllTasks(taskManager);
+
+
     }
 
     private static void printTask(TaskManager manager, int id) {
