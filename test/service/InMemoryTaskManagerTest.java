@@ -131,8 +131,11 @@ public class InMemoryTaskManagerTest {
         taskManager.getTask(task2.getId());
 
         List<Task> history = taskManager.getHistory();
+        System.out.println(history);  // Debug output
+
         assertTrue(history.contains(task1), "История должна содержать Задачу 1.");
         assertTrue(history.contains(task2), "История должна содержать Задачу 2.");
     }
+
 
 }
