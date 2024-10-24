@@ -5,6 +5,10 @@ public class Node {
     private Node prev;
     private Node next;
 
+    public Node() {
+
+    }
+
     public Node(Task task, Node prev, Node next) {
         this.task = task;
         this.prev = prev;

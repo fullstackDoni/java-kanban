@@ -9,9 +9,10 @@ import java.util.List;
 import java.util.Map;
 
 public class InMemoryHistoryManager implements HistoryManager {
-    private final Map<Integer, Node> taskMap = new HashMap<>();
-    private Node head;
-    private Node tail;
+    private final Map<Integer, Node> historyMap = new HashMap<>();
+    private Node first;
+    private Node last;
+
 
     @Override
     public void add(Task task) {
@@ -23,7 +24,7 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void remove(int id) {
-        Node node = taskMap.remove(id);
+        Node node = historyMap.remove(id);
         if (node != null) {
             removeNode(node);
         }
@@ -32,7 +33,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     @Override
     public List<Task> getHistory() {
         List<Task> history = new LinkedList<>();
-        Node current = head;
+        Node current = first;
         while (current != null) {
             history.add(current.getTask());
             current = current.getNext();
@@ -41,15 +42,12 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 
     private void linkLast(Task task) {
-        Node newNode = new Node(task, tail, null);
-        if (tail != null) {
-            tail.setNext(newNode);
+        Node newNode = new Node(task, last, null);
+        if (last != null) {
+            last.setNext(newNode);
         }
-        tail = newNode;
-        if (head == null) {
-            head = newNode;
-        }
-        taskMap.put(task.getId(), newNode);
+        last = newNode;
+        historyMap.put(task.getId(), newNode);
     }
 
     private void removeNode(Node node) {
@@ -59,13 +57,13 @@ public class InMemoryHistoryManager implements HistoryManager {
         if (prev != null) {
             prev.setNext(next);
         } else {
-            head = next;
+            first = next;
         }
 
         if (next != null) {
             next.setPrev(prev);
         } else {
-            tail = prev;
+            first = prev;
         }
     }
 }

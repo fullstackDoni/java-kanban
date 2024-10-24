@@ -200,7 +200,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public List<Task> getHistory() {
-        return historyManager.getHistory();
+        return new ArrayList<>(historyManager.getHistory());
     }
 
     @Override
@@ -218,6 +218,7 @@ public class InMemoryTaskManager implements TaskManager {
         }
         return new ArrayList<>();
     }
+
 }
 
 

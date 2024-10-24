@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 public class Task {
     protected int id;
     protected String name;
@@ -60,13 +62,13 @@ public class Task {
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        return id == ((Task) o).id;
+        if (!(o instanceof Task task)) return false;
+        return id == task.id;
     }
 
     @Override
     public final int hashCode() {
-        return id;
+        return Objects.hash(id);
     }
 
     @Override
