@@ -4,9 +4,11 @@ import model.SubTask;
 import model.Task;
 import service.Managers;
 import service.TaskManager;
+
 public class Main {
 
     public static void main(String[] args) {
+
         TaskManager taskManager = Managers.getDefault();
 
         Task task1 = new Task("Задача по Java","Нужно создать новый Bean",Status.NEW);
@@ -49,6 +51,7 @@ public class Main {
             System.out.println("Задача " + id + " не найдена.");
         }
     }
+
     private static void printEpic(TaskManager manager, int id) {
         Epic epic = manager.getEpic(id);
         if (epic != null) {
@@ -57,6 +60,7 @@ public class Main {
             System.out.println("Эпик " + id + " не найден.");
         }
     }
+
     private static void printSubtask(TaskManager manager, int id) {
         SubTask subtask = manager.getSubtask(id);
         if (subtask != null) {
@@ -65,11 +69,13 @@ public class Main {
             System.out.println("Подзадача " + id + " не найдена.");
         }
     }
+
     private static void printHistory(TaskManager manager) {
         for (Task task : manager.getHistory()) {
             System.out.println(task);
         }
     }
+
     private static void printAllTasks(TaskManager manager) {
         System.out.println("Все задачи:");
         for (Task task : manager.getAllTasks()) {
@@ -91,4 +97,5 @@ public class Main {
         System.out.println("История просмотров:");
         printHistory(manager);
     }
+
 }
