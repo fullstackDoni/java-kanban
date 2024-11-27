@@ -22,14 +22,17 @@ public class InMemoryTaskManager implements TaskManager{
     public List<Task> getAllTasks() {
         return new ArrayList<>(tasks.values());
     }
+
     @Override
     public List<Epic> getAllEpics() {
         return new ArrayList<>(epics.values());
     }
+
     @Override
     public List<SubTask> getAllSubtasks() {
         return new ArrayList<>(subtasks.values());
     }
+
     @Override
     public Task getTask(int id) {
         Task task = tasks.get(id);
@@ -38,6 +41,7 @@ public class InMemoryTaskManager implements TaskManager{
         }
         return task;
     }
+
     @Override
     public Epic getEpic(int id) {
         Epic epic = epics.get(id);
@@ -46,6 +50,7 @@ public class InMemoryTaskManager implements TaskManager{
         }
         return epic;
     }
+
     @Override
     public SubTask getSubtask(int id) {
         SubTask subtask = subtasks.get(id);
@@ -54,16 +59,19 @@ public class InMemoryTaskManager implements TaskManager{
         }
         return subtask;
     }
+
     @Override
     public void addTask(Task task) {
         task.setId(++id);
         tasks.put(task.getId(), task);
     }
+
     @Override
     public void addEpic(Epic epic) {
         epic.setId(++id);
         epics.put(epic.getId(), epic);
     }
+
     @Override
     public void addSubtask(SubTask subtask) {
         Epic epic = epics.get(subtask.getEpicId());
@@ -85,6 +93,7 @@ public class InMemoryTaskManager implements TaskManager{
             System.out.println("Задача с ID " + task.getId() + " не найдена.");
         }
     }
+
     @Override
     public void updateEpic(Epic epic) {
         if (epics.containsKey(epic.getId())) {
@@ -95,6 +104,7 @@ public class InMemoryTaskManager implements TaskManager{
             System.out.println("Эпик с ID " + epic.getId() + " не найден.");
         }
     }
+
     @Override
     public void updateSubtask(SubTask subtask) {
         if (subtasks.containsKey(subtask.getId())) {
@@ -107,6 +117,7 @@ public class InMemoryTaskManager implements TaskManager{
             System.out.println("Подзадача с ID " + subtask.getId() + " не найдена.");
         }
     }
+
     private void updateStatus(Epic epic) {
         List<SubTask> subTasks = new ArrayList<>();
         for (Integer subTaskId : epic.getSubTasks()) {
@@ -219,4 +230,5 @@ public class InMemoryTaskManager implements TaskManager{
         }
         return new ArrayList<>();
     }
+
 }

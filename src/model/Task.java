@@ -3,6 +3,7 @@ import model.enums.Status;
 import java.util.Objects;
 
 public class Task {
+
     protected int id;
     protected String name;
     protected Status status;
